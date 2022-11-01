@@ -9,4 +9,4 @@ Only Works with OAuth2.0 Auth Method (not all OAuth Token method are supported y
 Use :
 
 Just create and instanciate a REST_Client Object, gives it a Auth Method object if needed and just consume the API using REST_Client.Get<Entity>
-  If yoyu dont want the 
+  If your request entity is just string, use GetRaw instead
