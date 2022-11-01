@@ -65,7 +65,13 @@ namespace REST_CSS
         {
             var res = await this.Get(route, customHeaders);
             if (res.isSuccess)
-                return JsonConvert.DeserializeObject<T>(res.responseContent);
+            {
+                //if string do not deserialize
+                if (typeof(T) == typeof(string))
+                    return (T)Convert.ChangeType(res.responseContent, typeof(T));
+                else
+                    return JsonConvert.DeserializeObject<T>(res.responseContent);
+            }
             throw new Model.APIException(res.httpStatusCode, res.httpStatusMessage, res.responseContent);
         }
 
@@ -77,10 +83,11 @@ namespace REST_CSS
         /// <returns></returns>
         public async Task<T> Get<T>(string route)
         {
-            var res = await this.Get(route, null);
+            return await this.Get<T>(route, null);
+            /*var res = await this.Get<T>(route, null);
             if (res.isSuccess)
                 return JsonConvert.DeserializeObject<T>(res.responseContent);
-            throw new Model.APIException(res.httpStatusCode, res.httpStatusMessage,  res.responseContent);
+            throw new Model.APIException(res.httpStatusCode, res.httpStatusMessage, res.responseContent);*/
         }
         /// <summary>
         /// throw exception

@@ -145,7 +145,7 @@ namespace REST_CSS
             //Dans un premier temps on dois serialized l'object
 
             string json = JsonConvert.SerializeObject(entity);
-#if LOG_JSON
+#if DEBUG
             if (!System.IO.Directory.Exists("JSON"))
                 System.IO.Directory.CreateDirectory("JSON");
             using (var sw = new System.IO.StreamWriter($"JSON\\Json_Log_{DateTime.Today.ToString("ddMMyyyy")}.txt", true))
